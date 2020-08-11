@@ -1,16 +1,13 @@
-import React, {ReactNode} from 'react'
-import  Container  from 'react-bootstrap/Container'
-import Navigation from '../Navigation'
+import React from 'react';
+import Container from 'react-bootstrap/Container';
+import Navigation from '../Navigation';
+import { HasChildrenProps } from '../../../types';
 
-interface ShellProps  {
-    children: ReactNode
-}
+const Shell = ({ children }: HasChildrenProps) => (
+  <Container>
+    <Navigation />
+    {children}
+  </Container>
+);
 
-const Shell = ({ children }:ShellProps)=>(
-    <Container>
-    <Navigation/>
-        {children}
-    </Container>
-)
-
-export default Shell
+export default Shell;

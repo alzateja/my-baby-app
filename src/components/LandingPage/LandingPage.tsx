@@ -11,13 +11,12 @@ const LandingPage = () =>(
 <Container>
     <Row>
     <Col xs={6} md={4}>
-        <Image src="../../assets/baby.jpg" rounded />
+        <Image src={"../../assets/baby.jpg"} rounded />
     </Col>
     </Row>
-
+    <h1>Infant tracker</h1>
     <p>{placeholderText}</p>
 </Container>
-
 )
 
 export default LandingPage
