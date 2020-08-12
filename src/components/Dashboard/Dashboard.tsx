@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Dashboard = () => (
+const Dashboard = (): JSX.Element => (
   <div>
     <p>This is the Dashboard page</p>
   </div>

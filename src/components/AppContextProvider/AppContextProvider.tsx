@@ -1,11 +1,8 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import AppContext, { defaultAppContext } from '../../context/AppContext';
+import { HasChildrenProps } from '../../types';
 
-export interface AppContextProviderProps {
-  children: ReactNode;
-}
-
-const AppContextProvider = ({ children }: AppContextProviderProps) => (
+const AppContextProvider = ({ children }: HasChildrenProps): JSX.Element => (
   <AppContext.Provider value={defaultAppContext}>{children}</AppContext.Provider>
 );
 

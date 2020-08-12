@@ -15,7 +15,7 @@ const RegistrationComponent = lazy(() =>
   import(/* webpackChunkName: "registration" */ '../components/Dashboard')
 );
 
-const Routes = () => (
+const Routes = (): JSX.Element => (
   <Switch>
     <Route exact={true} path="/">
       <LazyLoader>

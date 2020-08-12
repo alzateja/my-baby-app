@@ -2,7 +2,7 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-const LoginPage = () => (
+const LoginPage = (): JSX.Element => (
   <Form>
     <Form.Group controlId="formBasicEmail">
       <Form.Label>Email address</Form.Label>

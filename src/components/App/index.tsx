@@ -5,7 +5,7 @@ import Routes from '../../routes/';
 import AppContextProvider from '../../components/AppContextProvider';
 import Shell from '../../components/common/Shell';
 
-const App = () => {
+const App = (): JSX.Element => {
   const history = createBrowserHistory({ basename: '/' });
 
   return (

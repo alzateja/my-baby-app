@@ -3,7 +3,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 
-const Navigation = () => (
+const Navigation = (): JSX.Element => (
   <Navbar bg="dark" expand="lg">
     <Navbar.Brand href="#home">My Baby App</Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
