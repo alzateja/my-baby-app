@@ -1,8 +1,9 @@
-import React, {Suspense, ReactNode} from 'react'
-import LoadingPage from '../LoadingPage'
+import React, { Suspense } from 'react';
+import LoadingPage from '../LoadingPage';
 import { HasChildrenProps } from '../../types';
 
+const LazyLoader = ({ children }: HasChildrenProps) => (
+  <Suspense fallback={<LoadingPage />}>{children}</Suspense>
+);
 
-const LazyLoader = ({children}:HasChildrenProps) => <Suspense fallback={<LoadingPage/>}>{children}</Suspense>
-
-export default LazyLoader
+export default LazyLoader;

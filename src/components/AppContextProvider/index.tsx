@@ -1,3 +1,3 @@
-import AppContextProvider from './AppContextProvider'
+import AppContextProvider from './AppContextProvider';
 
-export default AppContextProvider
+export default AppContextProvider;
