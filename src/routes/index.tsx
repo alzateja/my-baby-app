@@ -1,6 +1,7 @@
 import React, { lazy } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import LazyLoader from '../components/LazyLoader';
+import LoadingPage from '../components/LoadingPage';
 
 const DashboardComponent = lazy(() =>
   import(/* webpackChunkName: "dashboard" */ '../components/Dashboard')
@@ -12,7 +13,7 @@ const LoginPageComponent = lazy(() =>
   import(/* webpackChunkName: "login-page" */ '../components/LoginPage')
 );
 const RegistrationComponent = lazy(() =>
-  import(/* webpackChunkName: "registration" */ '../components/Dashboard')
+  import(/* webpackChunkName: "registration" */ '../components/Registration')
 );
 
 const Routes = (): JSX.Element => (
@@ -36,6 +37,9 @@ const Routes = (): JSX.Element => (
       <LazyLoader>
         <DashboardComponent />
       </LazyLoader>
+    </Route>
+    <Route path="/loading">
+      <LoadingPage />
     </Route>
   </Switch>
 );
