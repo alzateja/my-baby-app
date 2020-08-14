@@ -1,15 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
+import { isNotEmpty, textMatches } from '../../utils/Format.gen';
 
 const Registration = (): JSX.Element => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [passWordMismatchError, setPasswordMismatchError] = useState(false);
+  const [disableSubmit, setDisableSubmit] = useState(true);
+
+  useEffect(() => {
+    if (isNotEmpty(password) && isNotEmpty(confirmPassword)) {
+      setPasswordMismatchError(textMatches(password, confirmPassword));
+    }
+  }, [confirmPassword, password, setPasswordMismatchError]);
+
+  useEffect(() => {
+    setDisableSubmit(
+      passWordMismatchError ||
+        !isNotEmpty(password) ||
+        !isNotEmpty(confirmPassword) ||
+        !isNotEmpty(email)
+    );
+  }, [email, confirmPassword, passWordMismatchError, password]);
 
   return (
     <Form>
-      <Form.Group controlId="formBasicEmail">
+      {passWordMismatchError && <Alert variant="danger">This is a password mismatch</Alert>}
+      <Form.Group controlId="formRegistration">
         <Form.Label>Email address</Form.Label>
         <Form.Control
           onChange={(e) => setEmail(e.target.value)}
@@ -42,7 +62,7 @@ const Registration = (): JSX.Element => {
         />
       </Form.Group>
 
-      <Button variant="primary" type="submit">
+      <Button disabled={disableSubmit} type="submit" variant="primary">
         Register
       </Button>
     </Form>

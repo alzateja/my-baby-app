@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { isNotEmpty } from '../../utils/Format.gen';
 
 const LoginPage = (): JSX.Element => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [disableSubmit, setDisableSubmit] = useState(true);
+
+  useEffect(() => {
+    setDisableSubmit(!isNotEmpty(password) || !isNotEmpty(email));
+  }, [email, password]);
 
   return (
     <Form>
@@ -27,7 +33,7 @@ const LoginPage = (): JSX.Element => {
           value={password}
         />
       </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button disabled={disableSubmit} variant="primary" type="submit">
         Sign In
       </Button>
     </Form>

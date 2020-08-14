@@ -22,11 +22,13 @@
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "bsb -make-world && react-scripts start",
+    "build": "bsb -make-world && react-scripts build",
+    "clean": "bsb -clean-world",
     "lint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "watch": "bsb -make-world -w"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -50,6 +52,7 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.5",
+    "gentype": "^3.31.0",
     "prettier": "^2.0.5",
     "typescript": "^3.9.7"
   }
