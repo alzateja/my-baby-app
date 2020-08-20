@@ -16,7 +16,9 @@
     "suffix": ".bs.js",
     "namespace": true,
     "bs-dependencies": [
-        "reason-react"
+        "reason-react",
+        "@glennsl/bs-json",
+        "bs-axios"
       ],
     "refmt": 3,
     "gentypeconfig": {

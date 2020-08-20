@@ -1,34 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
-import { isNotEmpty, textMatches } from '../../utils/Format.gen';
+import { isValidRegistration } from '../../utils/AuthUtils.gen';
+import { registerUser } from '../../api/Authentication.gen';
 
 const Registration = (): JSX.Element => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [passWordMismatchError, setPasswordMismatchError] = useState(false);
-  const [disableSubmit, setDisableSubmit] = useState(true);
+  const [submitError, setSubmitError] = useState(false);
 
-  useEffect(() => {
-    if (isNotEmpty(password) && isNotEmpty(confirmPassword)) {
-      setPasswordMismatchError(textMatches(password, confirmPassword));
+  const onRegistrationSubmit = (): void => {
+    const isValidSubmit = isValidRegistration(email, password, confirmPassword);
+    if (isValidSubmit) {
+      setSubmitError(false);
+      registerUser({ email, password });
     }
-  }, [confirmPassword, password, setPasswordMismatchError]);
-
-  useEffect(() => {
-    setDisableSubmit(
-      passWordMismatchError ||
-        !isNotEmpty(password) ||
-        !isNotEmpty(confirmPassword) ||
-        !isNotEmpty(email)
-    );
-  }, [email, confirmPassword, passWordMismatchError, password]);
+    return setSubmitError(true);
+  };
 
   return (
     <Form>
-      {passWordMismatchError && <Alert variant="danger">This is a password mismatch</Alert>}
+      {submitError && (
+        <Alert variant="danger">
+          This was an issue submitting your request. Please check your inputs
+        </Alert>
+      )}
       <Form.Group controlId="formRegistration">
         <Form.Label>Email address</Form.Label>
         <Form.Control
@@ -62,7 +60,7 @@ const Registration = (): JSX.Element => {
         />
       </Form.Group>
 
-      <Button disabled={disableSubmit} type="submit" variant="primary">
+      <Button type="button" variant="primary" onClick={onRegistrationSubmit}>
         Register
       </Button>
     </Form>

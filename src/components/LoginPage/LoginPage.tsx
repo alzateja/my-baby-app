@@ -1,19 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { isNotEmpty } from '../../utils/Format.gen';
+import Alert from 'react-bootstrap/Alert';
+import { isValidSignIn } from '../../utils/AuthUtils.gen';
+import { loginUser } from '../../api/Authentication.gen';
 
 const LoginPage = (): JSX.Element => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [disableSubmit, setDisableSubmit] = useState(true);
+  const [submitError, setSubmitError] = useState(false);
 
-  useEffect(() => {
-    setDisableSubmit(!isNotEmpty(password) || !isNotEmpty(email));
-  }, [email, password]);
+  const loginSubmit = () => {
+    const isValidSubmit = isValidSignIn(email, password);
+
+    if (isValidSubmit) {
+      setSubmitError(false);
+      return loginUser({ email, password });
+    }
+    return setSubmitError(true);
+  };
 
   return (
     <Form>
+      {submitError && (
+        <Alert variant="danger">
+          This was an issue submitting your request. Please check your inputs
+        </Alert>
+      )}
       <Form.Group controlId="signInBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control
@@ -33,7 +46,7 @@ const LoginPage = (): JSX.Element => {
           value={password}
         />
       </Form.Group>
-      <Button disabled={disableSubmit} variant="primary" type="submit">
+      <Button variant="primary" type="button" onClick={loginSubmit}>
         Sign In
       </Button>
     </Form>
