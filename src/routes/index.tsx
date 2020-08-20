@@ -16,6 +16,10 @@ const RegistrationComponent = lazy(() =>
   import(/* webpackChunkName: "registration" */ '../components/Registration')
 );
 
+const SignUpSuccessComponent = lazy(() =>
+  import(/* webpackChunkName: "signup-success" */ '../components/SignUpSuccess')
+);
+
 const Routes = (): JSX.Element => (
   <Switch>
     <Route exact={true} path="/">
@@ -36,6 +40,11 @@ const Routes = (): JSX.Element => (
     <Route path="/dashboard">
       <LazyLoader>
         <DashboardComponent />
+      </LazyLoader>
+    </Route>
+    <Route path="/signup-success">
+      <LazyLoader>
+        <SignUpSuccessComponent />
       </LazyLoader>
     </Route>
     <Route path="/loading">
