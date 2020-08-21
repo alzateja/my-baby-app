@@ -5,6 +5,6 @@
 // tslint:disable-next-line:no-var-requires
 const AuthenticationBS = require('./Authentication.bs');
 
-export const registerUser: (userInput:{}) => Promise<void> = AuthenticationBS.registerUser;
+export const registerUser: <T2>(userInput:{}) => Promise<T2> = AuthenticationBS.registerUser;
 
-export const loginUser: (userInput:{}) => Promise<void> = AuthenticationBS.loginUser;
+export const loginUser: <T2>(userInput:{}) => Promise<T2> = AuthenticationBS.loginUser;
