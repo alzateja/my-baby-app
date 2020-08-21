@@ -2,8 +2,8 @@ import { createContext, useContext } from 'react';
 
 interface UserContextInterface {
   loggedIn: boolean;
-  userId: string;
-  userEmail: string;
+  id: string;
+  email: string;
   token: string;
 }
 
@@ -16,8 +16,8 @@ interface AppContextInterface {
 }
 export const defaultUserContext: UserContextInterface = {
   loggedIn: false,
-  userId: '',
-  userEmail: '',
+  id: '',
+  email: '',
   token: '',
 };
 
