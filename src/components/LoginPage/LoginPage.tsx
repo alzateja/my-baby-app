@@ -1,30 +1,43 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import { isValidSignIn } from '../../utils/AuthUtils.gen';
 import { loginUser } from '../../api/Authentication.gen';
 
+export interface apiResultError {
+  statusCode: number;
+  name: string;
+  message: string;
+}
+export interface apiResult {
+  error?: apiResultError;
+  id?: string;
+  token?: string;
+}
 const LoginPage = (): JSX.Element => {
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [submitError, setSubmitError] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
-  const loginSubmit = () => {
-    const isValidSubmit = isValidSignIn(email, password);
-
-    if (isValidSubmit) {
-      setSubmitError(false);
-      return loginUser({ email, password });
+  const loginSubmit = async () => {
+    setSubmitError('');
+    const result: apiResult = await loginUser({ email, password });
+    if (result?.error) {
+      return setSubmitError(result.error.message);
     }
-    return setSubmitError(true);
+    history.push('/dashboard');
   };
 
   return (
     <Form>
       {submitError && (
         <Alert variant="danger">
-          This was an issue submitting your request. Please check your inputs
+          {`This was an issue submitting your request. ${
+            submitError ? submitError : 'Please check your inputs'
+          }.`}
         </Alert>
       )}
       <Form.Group controlId="signInBasicEmail">
@@ -46,7 +59,12 @@ const LoginPage = (): JSX.Element => {
           value={password}
         />
       </Form.Group>
-      <Button variant="primary" type="button" onClick={loginSubmit}>
+      <Button
+        variant="primary"
+        type="button"
+        onClick={loginSubmit}
+        disabled={!isValidSignIn(email, password)}
+      >
         Sign In
       </Button>
     </Form>
