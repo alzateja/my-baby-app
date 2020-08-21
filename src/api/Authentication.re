@@ -1,5 +1,5 @@
   open Js.Promise;
-  
+
 external promiseErrorToJsObj : error => Js.t('a) = "%identity";
 
 [@genType]
