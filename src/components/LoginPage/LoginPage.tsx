@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
+import { useAppContext } from '../../context/AppContext';
 import { isValidSignIn } from '../../utils/AuthUtils.gen';
 import { loginUser } from '../../api/Authentication.gen';
 
@@ -21,6 +22,7 @@ const LoginPage = (): JSX.Element => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [submitError, setSubmitError] = useState('');
+  const { setUserData } = useAppContext();
 
   const loginSubmit = async () => {
     setSubmitError('');
@@ -28,6 +30,7 @@ const LoginPage = (): JSX.Element => {
     if (result?.error) {
       return setSubmitError(result.error.message);
     }
+    setUserData({ ...result, loggedIn: true });
     history.push('/dashboard');
   };
 

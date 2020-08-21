@@ -1,8 +1,6 @@
-import React, { useState, useMemo, useContext } from 'react';
+import React, { useState, useMemo } from 'react';
 import AppContext, { defaultUserContext } from '../../context/AppContext';
 import { HasChildrenProps } from '../../types';
-
-// export const useAppContext = useContext(AppContext);
 
 const AppContextProvider = ({ children }: HasChildrenProps): JSX.Element => {
   const [userData, updateUserData] = useState(defaultUserContext);

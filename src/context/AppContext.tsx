@@ -1,4 +1,4 @@
-import { createContext, Dispatch, SetStateAction } from 'react';
+import { createContext, useContext } from 'react';
 
 interface UserContextInterface {
   loggedIn: boolean;
@@ -10,9 +10,9 @@ interface UserContextInterface {
 interface AppContextInterface {
   user: UserContextInterface;
   babies: any[];
-  setUserData: Dispatch<SetStateAction<UserContextInterface>>;
-  setBabyData: Dispatch<SetStateAction<never[]>>;
-  resetUserData: () => void;
+  setUserData: any;
+  setBabyData: any;
+  resetUserData: any;
 }
 export const defaultUserContext: UserContextInterface = {
   loggedIn: false,
@@ -29,6 +29,8 @@ export const defaultAppContext: AppContextInterface = {
   resetUserData: () => console.log('update Baby Data'),
 };
 
-const AppContext = createContext<AppContextInterface | null>(defaultAppContext);
+const AppContext = createContext<AppContextInterface>(defaultAppContext);
+
+export const useAppContext = (): AppContextInterface => useContext(AppContext);
 
 export default AppContext;
