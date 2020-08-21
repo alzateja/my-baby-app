@@ -1,13 +1,32 @@
-import { createContext } from 'react';
+import { createContext, Dispatch, SetStateAction } from 'react';
 
-interface AppContextInterface {
+interface UserContextInterface {
   loggedIn: boolean;
   userId: string;
+  userEmail: string;
+  token: string;
 }
 
-export const defaultAppContext: AppContextInterface = {
+interface AppContextInterface {
+  user: UserContextInterface;
+  babies: any[];
+  setUserData: Dispatch<SetStateAction<UserContextInterface>>;
+  setBabyData: Dispatch<SetStateAction<never[]>>;
+  resetUserData: () => void;
+}
+export const defaultUserContext: UserContextInterface = {
   loggedIn: false,
   userId: '',
+  userEmail: '',
+  token: '',
+};
+
+export const defaultAppContext: AppContextInterface = {
+  user: defaultUserContext,
+  babies: [],
+  setUserData: () => console.log('update User Data'),
+  setBabyData: () => console.log('update Baby Data'),
+  resetUserData: () => console.log('update Baby Data'),
 };
 
 const AppContext = createContext<AppContextInterface | null>(defaultAppContext);
