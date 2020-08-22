@@ -1,19 +1,6 @@
 import { createContext, useContext } from 'react';
+import { AppContextInterface, UserContextInterface } from '../types';
 
-interface UserContextInterface {
-  loggedIn: boolean;
-  id: string;
-  email: string;
-  token: string;
-}
-
-interface AppContextInterface {
-  user: UserContextInterface;
-  babies: any[];
-  setUserData: any;
-  setBabyData: any;
-  resetUserData: any;
-}
 export const defaultUserContext: UserContextInterface = {
   loggedIn: false,
   id: '',
