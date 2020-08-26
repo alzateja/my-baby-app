@@ -1,5 +1,5 @@
 import React, { lazy } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import LazyLoader from '../components/LazyLoader';
 import LoadingPage from '../components/LoadingPage';
 
@@ -22,6 +22,10 @@ const SignUpSuccessComponent = lazy(() =>
 
 const SignOutComponent = lazy(() =>
   import(/* webpackChunkName: "signout" */ '../components/SignOut')
+);
+
+const ErrorPageComponent = lazy(() =>
+  import(/* webpackChunkName: "error" */ '../components/ErrorPage')
 );
 
 const Routes = (): JSX.Element => (
@@ -58,6 +62,11 @@ const Routes = (): JSX.Element => (
     </Route>
     <Route path="/loading">
       <LoadingPage />
+    </Route>
+    <Route path="/error">
+      <LazyLoader>
+        <ErrorPageComponent />
+      </LazyLoader>
     </Route>
   </Switch>
 );
