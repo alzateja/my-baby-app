@@ -10,7 +10,7 @@ const App = (): JSX.Element => {
 
   return (
     <AppContextProvider>
-      <Shell>
+      <Shell history={history}>
         <Router history={history}>
           <Routes />
         </Router>
