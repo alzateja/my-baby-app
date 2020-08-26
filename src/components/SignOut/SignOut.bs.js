@@ -2,13 +2,20 @@
 
 import * as React from "react";
 import * as Row from "react-bootstrap/Row";
+import * as Container from "react-bootstrap/Container";
+
+var Container$1 = {};
 
 var Row$1 = {};
 
 function SignOut(Props) {
-  return React.createElement(React.Fragment, undefined, React.createElement(Row.default, {
+  return React.createElement(Container.default, {
+              children: null
+            }, React.createElement(Row.default, {
                   className: "justify-content-center",
-                  children: React.createElement("h1", undefined, "You have successfully signed out!")
+                  children: React.createElement("h1", {
+                        className: "text-center"
+                      }, "You have successfully signed out!")
                 }), React.createElement(Row.default, {
                   className: "justify-content-center",
                   children: React.createElement("p", undefined, "Thank you for using our app")
@@ -20,6 +27,7 @@ var make = SignOut;
 var $$default = SignOut;
 
 export {
+  Container$1 as Container,
   Row$1 as Row,
   make ,
   $$default ,
