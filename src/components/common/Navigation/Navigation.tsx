@@ -1,12 +1,11 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import { useAppContext } from '../../../context/AppContext';
+import { HasHistoryProps } from '../../../types';
 
-const Navigation = (): JSX.Element => {
-  const history = useHistory();
+const Navigation = ({ history }: HasHistoryProps): JSX.Element => {
   const {
     user: { email, loggedIn },
     resetUserData,
@@ -16,19 +15,18 @@ const Navigation = (): JSX.Element => {
     resetUserData();
     history.push('/signout');
   };
+
   return (
     <Navbar bg="dark" expand>
       <Navbar.Brand href="/">My Baby App</Navbar.Brand>
-      {true ? (
+      {loggedIn ? (
         <>
           <Nav className="mr-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/dashboard">Dashboard</Nav.Link>
           </Nav>
           <Navbar.Text>Signed in as: {email}</Navbar.Text>
-          <Button href="register" variant="link" onClick={logout}>
-            Sign Out
-          </Button>
+          <Button onClick={logout}>Sign Out</Button>
         </>
       ) : (
         <>

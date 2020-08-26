@@ -1,3 +1,4 @@
+import { History } from 'history';
 import { ReactNode } from 'react';
 
 export type children = ReactNode;
@@ -6,9 +7,16 @@ export interface HasChildrenProps {
   children: children;
 }
 
+export interface HasHistoryProps {
+  history: History;
+}
+
+export type HasChildrenAndHistoryProps = HasHistoryProps & HasChildrenProps;
+
 export interface Baby {
+  babyId: string;
   name: string;
-  dob: Date;
+  dob: string;
 }
 
 export interface UserContextInterface {
