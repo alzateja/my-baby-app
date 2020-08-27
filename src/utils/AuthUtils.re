@@ -11,4 +11,7 @@ let isValidEmail = (email) =>Js.String.match(emailRegex,email) !== None;
 let isValidSignIn = (email, password)=> isValidEmail(email) && isValidPassword(password);
 
 [@genType]
-let isValidRegistration = (email, password, confirmPassword)=> isValidSignIn(email,password) && String.compare(password,confirmPassword) === 0;
+let passwordMatches = (password, confirmPassword)=> String.compare(password,confirmPassword) === 0;
+
+[@genType]
+let isValidRegistration = (email, password, confirmPassword)=> isValidSignIn(email,password) && passwordMatches(password, confirmPassword)

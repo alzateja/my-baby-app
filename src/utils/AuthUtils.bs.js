@@ -21,9 +21,13 @@ function isValidSignIn(email, password) {
   }
 }
 
+function passwordMatches(password, confirmPassword) {
+  return $$String.compare(password, confirmPassword) === 0;
+}
+
 function isValidRegistration(email, password, confirmPassword) {
   if (isValidSignIn(email, password)) {
-    return $$String.compare(password, confirmPassword) === 0;
+    return passwordMatches(password, confirmPassword);
   } else {
     return false;
   }
@@ -34,6 +38,7 @@ export {
   emailRegex ,
   isValidEmail ,
   isValidSignIn ,
+  passwordMatches ,
   isValidRegistration ,
   
 }
