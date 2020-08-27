@@ -33,3 +33,25 @@ export interface AppContextInterface {
   setBabyData: any;
   resetUserData: any;
 }
+
+export interface ApiErrorStatus {
+  statusCode: number;
+  name: string;
+  message: string;
+}
+
+export interface ApiResultError {
+  error?: ApiErrorStatus;
+}
+
+export interface RegistrationApiResponse {
+  id?: string;
+  email?: string;
+  error?: ApiErrorStatus;
+}
+
+export interface LoginApiResponse {
+  id?: string;
+  token?: string;
+  error?: ApiErrorStatus;
+}
