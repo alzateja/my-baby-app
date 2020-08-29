@@ -5,13 +5,9 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import {
-  isValidRegistration,
-  isValidPassword,
-  isValidEmail,
-  passwordMatches,
-} from '../../utils/AuthUtils.gen';
-import { isEmptyString } from '../../utils/FormatUtils.gen';
+import { isValidRegistration, isValidPassword, isValidEmail } from '../../utils/AuthUtils.gen';
+import { useAppContext } from '../../context/AppContext';
+import { isEmptyString, doStringsMatch } from '../../utils/FormatUtils.gen';
 import { registerUser } from '../../api/Authentication.gen';
 import { RegistrationApiResponse } from '../../types';
 
@@ -20,13 +16,13 @@ const Registration = (): JSX.Element => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [submitError, setSubmitError] = useState('');
+  const { errorMessage, setErrorMessage } = useAppContext();
 
   const onRegistrationSubmit = async () => {
-    setSubmitError('');
+    setErrorMessage('');
     const result: RegistrationApiResponse = await registerUser({ email, password });
     if (result?.error) {
-      return setSubmitError(result.error.message);
+      return setErrorMessage(result.error.message);
     }
     history.push('/signup-success');
   };
@@ -35,11 +31,9 @@ const Registration = (): JSX.Element => {
     <Container>
       <h2>Sign up Today!</h2>
       <Form>
-        {submitError && (
+        {errorMessage && (
           <Alert variant="danger">
-            {`This was an issue submitting your request. ${
-              submitError ? submitError : 'Please check your inputs'
-            }.`}
+            {`This was an issue submitting your request. ${errorMessage}`}
           </Alert>
         )}
         <Col md="8">
@@ -80,7 +74,7 @@ const Registration = (): JSX.Element => {
               type="password"
               value={confirmPassword}
               isInvalid={
-                !passwordMatches(password, confirmPassword) && !isEmptyString(confirmPassword)
+                !doStringsMatch(password, confirmPassword) && !isEmptyString(confirmPassword)
               }
             />
             <Form.Control.Feedback type="invalid">

@@ -3,3 +3,7 @@
 *{
     font-family: 'Roboto', sans-serif;
 }
+
+.panel-border {
+    border: solid black 1px;
+}

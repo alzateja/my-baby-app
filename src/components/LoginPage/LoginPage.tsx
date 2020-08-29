@@ -15,14 +15,13 @@ const LoginPage = (): JSX.Element => {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [submitError, setSubmitError] = useState('');
-  const { setUserData } = useAppContext();
+  const { setUserData, errorMessage, setErrorMessage } = useAppContext();
 
   const loginSubmit = async () => {
-    setSubmitError('');
+    setErrorMessage('');
     const result: LoginApiResponse = await loginUser({ email, password });
     if (result?.error) {
-      return setSubmitError(result.error.message);
+      return setErrorMessage(result.error.message);
     }
     setUserData({ ...result, loggedIn: true });
     history.push('/dashboard');
@@ -32,11 +31,9 @@ const LoginPage = (): JSX.Element => {
     <Container>
       <h2>Login in to start tracking today!</h2>
       <Form>
-        {submitError && (
+        {errorMessage && (
           <Alert variant="danger">
-            {`This was an issue submitting your request. ${
-              submitError ? submitError : 'Please check your inputs.'
-            }`}
+            {`This was an issue submitting your request. ${errorMessage}`}
           </Alert>
         )}
         <Col md="5">
