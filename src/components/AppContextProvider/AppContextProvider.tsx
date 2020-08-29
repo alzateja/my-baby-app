@@ -5,16 +5,32 @@ import { HasChildrenProps } from '../../types';
 const AppContextProvider = ({ children }: HasChildrenProps): JSX.Element => {
   const [userData, updateUserData] = useState(defaultUserContext);
   const [babies, setBabyData] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [babiesLoading, setBabiesLoading] = useState(false);
+  const [eventsLoading, setEventsLoading] = useState(false);
+  const [currentBabyId, setCurrentBabyId] = useState('');
 
   const appContextValue = useMemo(() => {
     return {
-      user: userData,
+      userData: userData,
       setUserData: updateUserData,
-      babies: babies,
-      setBabyData: setBabyData,
+      babyData: {
+        babies,
+        currentBabyId,
+      },
+      loadingData: {
+        babiesLoading,
+        eventsLoading,
+      },
+      setBabyData,
+      setErrorMessage,
+      setBabiesLoading,
+      errorMessage,
+      setCurrentBabyId,
+      setEventsLoading,
       resetUserData: () => updateUserData(defaultUserContext),
     };
-  }, [userData, babies]);
+  }, [userData, currentBabyId, babies, errorMessage, babiesLoading, eventsLoading]);
 
   return <AppContext.Provider value={appContextValue}>{children}</AppContext.Provider>;
 };

@@ -17,6 +17,11 @@ export interface Baby {
   babyId: string;
   name: string;
   dob: string;
+  userId: string;
+}
+
+export interface BabyList {
+  babies: Baby[];
 }
 
 export interface UserContextInterface {
@@ -26,12 +31,28 @@ export interface UserContextInterface {
   token: string;
 }
 
+export interface LoadingContextInterface {
+  babiesLoading: boolean;
+  eventsLoading: boolean;
+}
+
+export interface BabyContextInterface {
+  currentBabyId: string;
+  babies: Baby[];
+}
+
 export interface AppContextInterface {
-  user: UserContextInterface;
-  babies: any[];
+  userData: UserContextInterface;
+  babyData: BabyContextInterface;
+  loadingData: LoadingContextInterface;
   setUserData: any;
   setBabyData: any;
   resetUserData: any;
+  errorMessage: string;
+  setErrorMessage: any;
+  setBabiesLoading: any;
+  setCurrentBabyId: any;
+  setEventsLoading: any;
 }
 
 export interface ApiErrorStatus {
@@ -53,5 +74,10 @@ export interface RegistrationApiResponse {
 export interface LoginApiResponse {
   id?: string;
   token?: string;
+  error?: ApiErrorStatus;
+}
+
+export interface BabiesApiResponse {
+  babies?: BabyList;
   error?: ApiErrorStatus;
 }
