@@ -17,11 +17,6 @@ export const isValidSignIn: (email:string, password:string) => boolean = functio
   return result
 };
 
-export const passwordMatches: (password:string, confirmPassword:string) => boolean = function (Arg1: any, Arg2: any) {
-  const result = Curry._2(AuthUtilsBS.passwordMatches, Arg1, Arg2);
-  return result
-};
-
 export const isValidRegistration: (email:string, password:string, confirmPassword:string) => boolean = function (Arg1: any, Arg2: any, Arg3: any) {
   const result = Curry._3(AuthUtilsBS.isValidRegistration, Arg1, Arg2, Arg3);
   return result

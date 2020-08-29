@@ -1,3 +1,5 @@
+[@genType]
+let hasReachedChildLimit = (babies) => babies |> Array.length >= 4;
 
 [@genType]
-let isEmptyString = (string) => string === "";
+let formatDateString = (dateString) =>  String.sub(dateString,0,10);
