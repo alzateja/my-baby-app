@@ -20,7 +20,7 @@ module Row = {
 let make = ()=>{
 <>
 <Row className="justify-content-center">
-<h2>{React.string("We are loading your page!")}</h2>
+<h2>{React.string("Loading...")}</h2>
 </Row>
 <Row className="justify-content-center">
 <Spinner animation="border" role="status">

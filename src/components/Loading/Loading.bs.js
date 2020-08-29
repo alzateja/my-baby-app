@@ -8,10 +8,10 @@ var Spinner$1 = {};
 
 var Row$1 = {};
 
-function LoadingPage(Props) {
+function Loading(Props) {
   return React.createElement(React.Fragment, undefined, React.createElement(Row.default, {
                   className: "justify-content-center",
-                  children: React.createElement("h2", undefined, "We are loading your page!")
+                  children: React.createElement("h2", undefined, "Loading...")
                 }), React.createElement(Row.default, {
                   className: "justify-content-center",
                   children: React.createElement(Spinner.default, {
@@ -24,9 +24,9 @@ function LoadingPage(Props) {
                 }));
 }
 
-var make = LoadingPage;
+var make = Loading;
 
-var $$default = LoadingPage;
+var $$default = Loading;
 
 export {
   Spinner$1 as Spinner,

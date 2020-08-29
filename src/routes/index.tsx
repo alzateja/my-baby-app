@@ -1,7 +1,7 @@
 import React, { lazy } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import LazyLoader from '../components/LazyLoader';
-import LoadingPage from '../components/LoadingPage';
+import Loading from '../components/Loading';
 
 const DashboardComponent = lazy(() =>
   import(/* webpackChunkName: "dashboard" */ '../components/Dashboard')
@@ -61,7 +61,7 @@ const Routes = (): JSX.Element => (
       </LazyLoader>
     </Route>
     <Route path="/loading">
-      <LoadingPage />
+      <Loading />
     </Route>
     <Route path="/error">
       <LazyLoader>
