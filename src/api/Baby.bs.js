@@ -17,7 +17,7 @@ function createBaby(token, babyInput) {
             });
 }
 
-function getBabies(userId, token) {
+function getBabies(token, userId) {
   var headerObject = CommonHeaders$MyBabyApp.configureTokenHeaders(token);
   var headers = Axios.$$Headers.fromObj(headerObject);
   return Axios$1.get(ApiConstants$MyBabyApp.host + ("users/" + (userId + "/babies")), {
@@ -29,10 +29,22 @@ function getBabies(userId, token) {
             });
 }
 
-function deleteBaby(babyId, token) {
+function deleteBaby(token, babyId) {
   var headerObject = CommonHeaders$MyBabyApp.configureTokenHeaders(token);
   var headers = Axios.$$Headers.fromObj(headerObject);
   return Axios$1.delete(ApiConstants$MyBabyApp.host + ("babies/" + babyId), {
+                  headers: headers
+                }).then(function (response) {
+                return Promise.resolve(response.data);
+              }).catch(function (error) {
+              return Promise.resolve(error.response.data);
+            });
+}
+
+function editBaby(token, babyId, babyInput) {
+  var headerObject = CommonHeaders$MyBabyApp.configureTokenHeaders(token);
+  var headers = Axios.$$Headers.fromObj(headerObject);
+  return Axios$1.patch(ApiConstants$MyBabyApp.host + ("/babies/" + babyId), babyInput, {
                   headers: headers
                 }).then(function (response) {
                 return Promise.resolve(response.data);
@@ -45,6 +57,7 @@ export {
   createBaby ,
   getBabies ,
   deleteBaby ,
+  editBaby ,
   
 }
 /* axios Not a pure module */

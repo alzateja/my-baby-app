@@ -21,7 +21,7 @@ let createBaby = ( token, babyInput )=> {
 };
 
 [@genType]
-let getBabies = (userId, token )=> {
+let getBabies = (token, userId )=> {
   let headerObject =CommonHeaders.configureTokenHeaders(token);
   let headers =  Axios.Headers.fromObj(headerObject);
    Axios.getc(
@@ -36,7 +36,7 @@ let getBabies = (userId, token )=> {
 };
 
 [@genType]
-let deleteBaby = (babyId, token )=> {
+let deleteBaby = (token, babyId )=> {
   let headerObject =CommonHeaders.configureTokenHeaders(token);
   let headers =  Axios.Headers.fromObj(headerObject);
    Axios.deletec(
@@ -50,3 +50,21 @@ let deleteBaby = (babyId, token )=> {
   })
 };
 
+
+[@genType]
+let editBaby = ( token, babyId, babyInput )=> {
+  let headerObject =CommonHeaders.configureTokenHeaders(token);
+  let headers =  Axios.Headers.fromObj(headerObject);
+   Axios.patchDatac(
+    ApiConstants.host++"/babies/"++babyId,
+    {
+      babyInput;
+    },
+    Axios.makeConfig(~headers, ())
+  )
+  |>then_(response => resolve(response##data))
+  |>catch(error => {
+  let errorObject = error |> promiseErrorToJsObj;
+  resolve(errorObject##response##data)
+  })
+};

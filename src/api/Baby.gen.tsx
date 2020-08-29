@@ -13,12 +13,17 @@ export const createBaby: <T2>(token:string, babyInput:{}) => Promise<T2> = funct
   return result
 };
 
-export const getBabies: <T1>(userId:string, token:string) => Promise<T1> = function <T1>(Arg1: any, Arg2: any) {
+export const getBabies: <T1>(token:string, userId:string) => Promise<T1> = function <T1>(Arg1: any, Arg2: any) {
   const result = Curry._2(BabyBS.getBabies, Arg1, Arg2);
   return result
 };
 
-export const deleteBaby: <T1>(babyId:string, token:string) => Promise<T1> = function <T1>(Arg1: any, Arg2: any) {
+export const deleteBaby: <T1>(token:string, babyId:string) => Promise<T1> = function <T1>(Arg1: any, Arg2: any) {
   const result = Curry._2(BabyBS.deleteBaby, Arg1, Arg2);
+  return result
+};
+
+export const editBaby: <T2>(token:string, babyId:string, babyInput:{}) => Promise<T2> = function <T2>(Arg1: any, Arg2: any, Arg3: any) {
+  const result = Curry._3(BabyBS.editBaby, Arg1, Arg2, Arg3);
   return result
 };
