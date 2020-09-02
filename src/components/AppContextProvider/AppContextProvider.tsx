@@ -1,36 +1,62 @@
 import React, { useMemo, useState } from 'react';
-import AppContext, { defaultUserContext } from '../../context/AppContext';
-import { HasChildrenProps } from '../../types';
+import AppContext, {
+  defaultCurrentUserContext,
+  defaultSelectedBabyDetailsContext,
+} from '../../context/AppContext';
+import {
+  HasChildrenProps,
+  CurrentUserInterface,
+  BabyList,
+  BabyWithEvents,
+  BabyEventType,
+} from '../../types';
 
 const AppContextProvider = ({ children }: HasChildrenProps): JSX.Element => {
-  const [userData, updateUserData] = useState(defaultUserContext);
-  const [babies, setBabyData] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [babiesLoading, setBabiesLoading] = useState(false);
-  const [eventsLoading, setEventsLoading] = useState(false);
-  const [currentBabyId, setCurrentBabyId] = useState('');
+  const [currentUser, setCurrentUserData] = useState<CurrentUserInterface>(
+    defaultCurrentUserContext
+  );
+  const [babies, setBabiesList] = useState<BabyList>([]);
+  const [selectedBabyDetails, setSelectedBabyDetails] = useState<BabyWithEvents>(
+    defaultSelectedBabyDetailsContext
+  );
+  const [isBabyPanelLoading, setBabyPanelLoading] = useState<boolean>(false);
+  const [isEventPanelLoading, setEventsPanelLoading] = useState<boolean>(false);
+  const [selectedBabyId, setSelectedBabyId] = useState<string>('');
+  const [displayedEventType, setDisplayedEventType] = useState<BabyEventType>('diapers');
 
   const appContextValue = useMemo(() => {
     return {
-      userData: userData,
-      setUserData: updateUserData,
+      userData: {
+        currentUser,
+        setCurrentUserData,
+        resetCurrentUserData: () => setCurrentUserData(defaultCurrentUserContext),
+      },
       babyData: {
         babies,
-        currentBabyId,
+        setBabiesList,
+        selectedBabyDetails,
+        setSelectedBabyDetails,
       },
-      loadingData: {
-        babiesLoading,
-        eventsLoading,
+      displayData: {
+        isBabyPanelLoading,
+        isEventPanelLoading,
+        setBabyPanelLoading,
+        setEventsPanelLoading,
+        selectedBabyId,
+        setSelectedBabyId,
+        displayedEventType,
+        setDisplayedEventType,
       },
-      setBabyData,
-      setErrorMessage,
-      setBabiesLoading,
-      errorMessage,
-      setCurrentBabyId,
-      setEventsLoading,
-      resetUserData: () => updateUserData(defaultUserContext),
     };
-  }, [userData, currentBabyId, babies, errorMessage, babiesLoading, eventsLoading]);
+  }, [
+    currentUser,
+    babies,
+    selectedBabyDetails,
+    selectedBabyId,
+    isBabyPanelLoading,
+    isEventPanelLoading,
+    displayedEventType,
+  ]);
 
   return <AppContext.Provider value={appContextValue}>{children}</AppContext.Provider>;
 };
