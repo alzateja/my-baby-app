@@ -1,32 +1,28 @@
 import React, { lazy } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import LazyLoader from '../components/LazyLoader';
-import Loading from '../components/Loading';
+import Loading from '../components/common/Loading';
 
 const DashboardComponent = lazy(() =>
-  import(/* webpackChunkName: "dashboard" */ '../components/Dashboard')
+  import(/* webpackChunkName: "dashboard" */ '../pages/Dashboard')
 );
 const LandingPageComponent = lazy(() =>
-  import(/* webpackChunkName: "landing-page" */ '../components/LandingPage')
+  import(/* webpackChunkName: "landing-page" */ '../pages/LandingPage')
 );
 const LoginPageComponent = lazy(() =>
-  import(/* webpackChunkName: "login-page" */ '../components/LoginPage')
+  import(/* webpackChunkName: "login-page" */ '../pages/LoginPage')
 );
 const RegistrationComponent = lazy(() =>
-  import(/* webpackChunkName: "registration" */ '../components/Registration')
+  import(/* webpackChunkName: "registration" */ '../pages/Registration')
 );
 
 const SignUpSuccessComponent = lazy(() =>
-  import(/* webpackChunkName: "signup-success" */ '../components/SignUpSuccess')
+  import(/* webpackChunkName: "signup-success" */ '../pages/SignUpSuccess')
 );
 
-const SignOutComponent = lazy(() =>
-  import(/* webpackChunkName: "signout" */ '../components/SignOut')
-);
+const SignOutComponent = lazy(() => import(/* webpackChunkName: "signout" */ '../pages/SignOut'));
 
-const ErrorPageComponent = lazy(() =>
-  import(/* webpackChunkName: "error" */ '../components/ErrorPage')
-);
+const ErrorPageComponent = lazy(() => import(/* webpackChunkName: "error" */ '../pages/ErrorPage'));
 
 const Routes = (): JSX.Element => (
   <Switch>
