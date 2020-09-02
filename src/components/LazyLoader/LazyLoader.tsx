@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import Loading from '../Loading';
+import Loading from '../common/Loading';
 import { HasChildrenProps } from '../../types';
 
 const LazyLoader = ({ children }: HasChildrenProps): JSX.Element => (
