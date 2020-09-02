@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
-import Navigation from '../Navigation';
+import Navigation from './NavigationBar';
 import { HasChildrenAndHistoryProps } from '../../../types';
 
 const Shell = ({ children, history }: HasChildrenAndHistoryProps): JSX.Element => {
