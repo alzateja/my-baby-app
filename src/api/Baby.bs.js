@@ -53,11 +53,24 @@ function editBaby(token, babyId, babyInput) {
             });
 }
 
+function getBabyWithEvents(token, babyId) {
+  var headerObject = CommonHeaders$MyBabyApp.configureTokenHeaders(token);
+  var headers = Axios.$$Headers.fromObj(headerObject);
+  return Axios$1.get(ApiConstants$MyBabyApp.host + ("babies/" + babyId), {
+                  headers: headers
+                }).then(function (response) {
+                return Promise.resolve(response.data);
+              }).catch(function (error) {
+              return Promise.resolve(error.response.data);
+            });
+}
+
 export {
   createBaby ,
   getBabies ,
   deleteBaby ,
   editBaby ,
+  getBabyWithEvents ,
   
 }
 /* axios Not a pure module */

@@ -27,3 +27,8 @@ export const editBaby: <T2>(token:string, babyId:string, babyInput:{}) => Promis
   const result = Curry._3(BabyBS.editBaby, Arg1, Arg2, Arg3);
   return result
 };
+
+export const getBabyWithEvents: <T1>(token:string, babyId:string) => Promise<T1> = function <T1>(Arg1: any, Arg2: any) {
+  const result = Curry._2(BabyBS.getBabyWithEvents, Arg1, Arg2);
+  return result
+};

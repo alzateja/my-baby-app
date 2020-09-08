@@ -68,3 +68,19 @@ let editBaby = ( token, babyId, babyInput )=> {
   resolve(errorObject##response##data)
   })
 };
+
+
+[@genType]
+let getBabyWithEvents = (token, babyId )=> {
+  let headerObject =CommonHeaders.configureTokenHeaders(token);
+  let headers =  Axios.Headers.fromObj(headerObject);
+   Axios.getc(
+    ApiConstants.host++"babies/"++babyId,
+    Axios.makeConfig(~headers, ())
+  )
+  |>then_(response => resolve(response##data))
+  |>catch(error => {
+  let errorObject = error |> promiseErrorToJsObj;
+  resolve(errorObject##response##data)
+  })
+};
