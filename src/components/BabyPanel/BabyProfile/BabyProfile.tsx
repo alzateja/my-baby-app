@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import FormControl from 'react-bootstrap/FormControl';
-import InputGroup from 'react-bootstrap/InputGroup';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { isEmpty } from 'lodash';
-import { useAppContext } from '../../../context/AppContext';
 import { isEmptyString, doStringsMatch } from '../../../utils/FormatUtils.gen';
+import DateOfBirthInput from '../../common/Form/DateOfBirthInput';
+import BabyNameInput from '../../common/Form/BabyNameInput';
 
 export interface BabyProfile {
   babyId: string;
@@ -14,9 +13,17 @@ export interface BabyProfile {
   dob: string;
   deleteRecord: any;
   editRecord: any;
+  viewEvents: any;
 }
 
-const BabyProfile = ({ babyId, name, dob, deleteRecord, editRecord }: BabyProfile): JSX.Element => {
+const BabyProfile = ({
+  babyId,
+  name,
+  dob,
+  deleteRecord,
+  editRecord,
+  viewEvents,
+}: BabyProfile): JSX.Element => {
   const [inEditState, setEditState] = useState(false);
   const [updatedName, setUpdatedName] = useState(name);
   const [updatedDob, setUpdatedDob] = useState(dob);
@@ -70,34 +77,11 @@ const BabyProfile = ({ babyId, name, dob, deleteRecord, editRecord }: BabyProfil
         {inEditState ? (
           <>
             <Card.Title>
-              <InputGroup>
-                <InputGroup.Prepend>
-                  <InputGroup.Text id="basic-addon1">Name</InputGroup.Text>
-                </InputGroup.Prepend>
-                <FormControl
-                  placeholder="Child's Name"
-                  aria-label="Child's Name"
-                  aria-describedby="basic-addon1"
-                  value={updatedName}
-                  onChange={(e) => setUpdatedName(e.target.value)}
-                />
-              </InputGroup>
+              <BabyNameInput value={updatedName} setValue={setUpdatedName} />
             </Card.Title>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <InputGroup>
-                  <InputGroup.Prepend>
-                    <InputGroup.Text id="basic-addon1">Date of Birth</InputGroup.Text>
-                  </InputGroup.Prepend>
-                  <FormControl
-                    placeholder="Date of Birth"
-                    aria-label="Date of Birth"
-                    aria-describedby="basic-addon1"
-                    type="date"
-                    value={updatedDob}
-                    onChange={(e) => setUpdatedDob(e.target.value)}
-                  />
-                </InputGroup>
+                <DateOfBirthInput value={updatedDob} setValue={setUpdatedDob} />
               </ListGroup.Item>
             </ListGroup>
           </>
@@ -120,7 +104,9 @@ const BabyProfile = ({ babyId, name, dob, deleteRecord, editRecord }: BabyProfil
         )}
       </Card.Body>
       <Card.Footer>
-        <Button variant="primary">View Events</Button>
+        <Button variant="primary" onClick={viewEvents}>
+          View Events
+        </Button>
       </Card.Footer>
     </Card>
   );

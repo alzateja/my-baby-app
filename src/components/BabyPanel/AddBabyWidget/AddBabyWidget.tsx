@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl';
-import InputGroup from 'react-bootstrap/InputGroup';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import { isEmptyString } from '../../../utils/FormatUtils.gen';
@@ -11,18 +8,22 @@ import { createBaby } from '../../../api/Baby.gen';
 import { BabiesApiResponse } from '../../../types';
 import Container from 'react-bootstrap/esm/Container';
 import './styles.css';
+import DateOfBirthInput from '../../common/Form/DateOfBirthInput';
+import BabyNameInput from '../../common/Form/BabyNameInput';
 
 interface AddBabyWidgetProps {
   setOpenStatus: any;
+  setErrorMessage: any;
 }
-const AddBabyWidget = ({ setOpenStatus }: AddBabyWidgetProps): JSX.Element => {
-  const [name, setName] = useState('');
-  const [dob, setDob] = useState('');
+const AddBabyWidget = ({ setOpenStatus, setErrorMessage }: AddBabyWidgetProps): JSX.Element => {
+  const [name, setName] = useState<string>('');
+  const [dob, setDob] = useState<string>('');
 
   const {
-    userData: { id, token },
-    setBabyData,
-    setErrorMessage,
+    userData: {
+      currentUser: { id, token },
+    },
+    babyData: { setBabiesList },
   } = useAppContext();
 
   const closeBabyWidget = () => {
@@ -37,38 +38,15 @@ const AddBabyWidget = ({ setOpenStatus }: AddBabyWidgetProps): JSX.Element => {
     if (result?.error) {
       return setErrorMessage(result.error.message);
     }
-    setBabyData(result);
+    setBabiesList(result);
   };
 
   return (
     <Container fluid className="panel-border add-child-form">
       <Form>
         <Form.Row>
-          <InputGroup as={Col}>
-            <InputGroup.Prepend>
-              <InputGroup.Text id="basic-addon1">Name</InputGroup.Text>
-            </InputGroup.Prepend>
-            <FormControl
-              placeholder="Child's Name"
-              aria-label="Child's Name"
-              aria-describedby="basic-addon1"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </InputGroup>
-          <InputGroup as={Col}>
-            <InputGroup.Prepend>
-              <InputGroup.Text id="basic-addon1">Date of Birth</InputGroup.Text>
-            </InputGroup.Prepend>
-            <FormControl
-              placeholder="Date of Birth"
-              aria-label="Date of Birth"
-              aria-describedby="basic-addon1"
-              type="date"
-              value={dob}
-              onChange={(e) => setDob(e.target.value)}
-            />
-          </InputGroup>
+          <BabyNameInput value={name} setValue={setName} />
+          <DateOfBirthInput value={dob} setValue={setDob} />
         </Form.Row>
         <Form.Row className="justify-content-center align-items-center">
           <ButtonGroup>

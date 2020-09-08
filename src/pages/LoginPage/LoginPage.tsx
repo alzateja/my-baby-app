@@ -9,7 +9,7 @@ import { useAppContext } from '../../context/AppContext';
 import { isValidSignIn, isValidPassword, isValidEmail } from '../../utils/AuthUtils.gen';
 import { isEmptyString } from '../../utils/FormatUtils.gen';
 import { loginUser } from '../../api/Authentication.gen';
-import { ApiResultError, LoginApiResponse } from '../../types';
+import { LoginApiResponse } from '../../types';
 import ErrorAlert from '../../components/common/ErrorAlert';
 import PasswordInput from '../../components/common/Form/PasswordInput';
 

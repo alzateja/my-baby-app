@@ -1,5 +1,4 @@
 import React from 'react';
-import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import BabyProfile from '../BabyProfile';
 import { Baby, BabiesApiResponse } from '../../../types';
@@ -9,13 +8,16 @@ import { formatDateString } from '../../../utils/BabyUtils.gen';
 
 interface BabyDisplayProps {
   babies: any;
+  setErrorMessage: any;
 }
 
-const BabyDisplay = ({ babies }: BabyDisplayProps): JSX.Element => {
+const BabyDisplay = ({ babies, setErrorMessage }: BabyDisplayProps): JSX.Element => {
   const {
-    userData: { token },
-    setBabyData,
-    setErrorMessage,
+    userData: {
+      currentUser: { token },
+    },
+    babyData: { setBabiesList },
+    displayData: { setSelectedBabyId, selectedBabyId },
   } = useAppContext();
 
   const deleteBabyRecord = (babyId: string) => async () => {
@@ -23,7 +25,10 @@ const BabyDisplay = ({ babies }: BabyDisplayProps): JSX.Element => {
     if (result?.error) {
       return setErrorMessage(result.error.message);
     }
-    setBabyData(result);
+    if (babyId === selectedBabyId) {
+      setSelectedBabyId('');
+    }
+    setBabiesList(result);
   };
 
   const editBabyRecord = (babyId: string) => async (babyInput: Baby) => {
@@ -31,7 +36,10 @@ const BabyDisplay = ({ babies }: BabyDisplayProps): JSX.Element => {
     if (result?.error) {
       return setErrorMessage(result.error.message);
     }
-    setBabyData(result);
+    if (babyId === selectedBabyId) {
+      setSelectedBabyId('');
+    }
+    setBabiesList(result);
   };
 
   if (!babies.length) {
@@ -53,6 +61,7 @@ const BabyDisplay = ({ babies }: BabyDisplayProps): JSX.Element => {
           dob={formatDateString(baby.dob)}
           deleteRecord={deleteBabyRecord(baby.babyId)}
           editRecord={editBabyRecord(baby.babyId)}
+          viewEvents={() => setSelectedBabyId(baby.babyId)}
         />
       ))}
     </Row>
