@@ -1,19 +1,26 @@
 import React from 'react';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/Dropdown';
-import { BasicInputProps } from '../../../../types';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+import { EventTypeInputProps } from '../../../../types';
 
-const EventTypeInput = ({ value, setValue }: BasicInputProps): JSX.Element => {
-  const eventOptions = ['mixed', 'wet', 'dirty'];
-
+const EventTypeInput = ({ value, setValue, typeOptions }: EventTypeInputProps): JSX.Element => {
   return (
-    <DropdownButton id="dropdown-basic-button" title={value || 'Dropdown button'}>
-      {eventOptions.map((option: string) => (
-        <Dropdown.Item key={option} eventKey={option} onSelect={(e) => setValue(e)}>
-          {option}
-        </Dropdown.Item>
+    <InputGroup>
+      <InputGroup.Prepend>
+        <InputGroup.Text id="event-text">Event Type</InputGroup.Text>
+      </InputGroup.Prepend>
+      {typeOptions.map((type) => (
+        <Form.Check
+          inline
+          label={type}
+          type="radio"
+          id={`inline-${type}`}
+          key={type}
+          checked={value === type}
+          onChange={() => setValue(type)}
+        />
       ))}
-    </DropdownButton>
+    </InputGroup>
   );
 };
 export default EventTypeInput;
