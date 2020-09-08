@@ -1,3 +1,5 @@
+import { FeedingList, DiaperList } from './events.d';
+
 export interface Baby {
   babyId: string;
   name: string;
@@ -8,6 +10,6 @@ export interface Baby {
 export type BabyList = Baby[];
 
 export interface BabyWithEvents extends Baby {
-  feedings: any[];
-  diapers: any[];
+  feedings: FeedingList;
+  diapers: DiaperList;
 }
